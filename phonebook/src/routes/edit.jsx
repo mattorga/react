@@ -1,4 +1,4 @@
-import { Form, useLoaderData, redirect } from "react-router-dom";
+import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { updateContact } from "../contacts";
 
 const action = async ({ request, params }) => {
@@ -11,6 +11,7 @@ const action = async ({ request, params }) => {
 
 const EditContact = () => {
     const { contact } = useLoaderData();
+    const navigate = useNavigate();
 
     return (
         <Form method="post" id="contact-form">

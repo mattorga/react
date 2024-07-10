@@ -230,7 +230,7 @@ i {
 }
 
 #sidebar nav a.active {
-  background: hsl(224, 98%, 58%);
+  background: hsl(0, 98%, 58%);
   color: white;
 }
 
