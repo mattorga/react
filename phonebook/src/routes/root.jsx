@@ -9,7 +9,7 @@ import {
     useSubmit,
 } from "react-router-dom";
 import { getContacts, createContact } from "../contacts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const action = async () => {
     const contact = await createContact();
@@ -27,6 +27,11 @@ const Root = () => {
     const { contacts, q } = useLoaderData();
     const navigation = useNavigation();
     const submit = useSubmit();
+    const [favoritesOnly, setFavoritesOnly] = useState(false);
+
+    let contactsToShow = favoritesOnly
+    ? contacts.filter(contact => contact.favorite === true)
+    : contacts
 
     const searching = 
         navigation.location && 
@@ -63,11 +68,12 @@ const Root = () => {
                     <Form method="post">
                         <button type="submit">New</button>
                     </Form>
+                    <button onClick={() => setFavoritesOnly(!favoritesOnly)}>{favoritesOnly ? "★" : "☆"}</button>
                 </div>
                 <nav>
-                    {contacts.length ? (
+                    {contactsToShow.length ? (
                         <ul>
-                            {contacts.map((contact) => (
+                            {contactsToShow.map((contact) => (
                                 <li key={contact.id}>
                                     <NavLink
                                         to={`contacts/${contact.id}`}
